@@ -162,3 +162,5 @@ cython_debug/
 # Specific app directory and file to ignore
 data/*
 database.sqlite3
+format_dataset.py
+chatbot.conf.json

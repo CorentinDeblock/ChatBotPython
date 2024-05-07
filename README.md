@@ -92,4 +92,7 @@ The path will be <ENV_FOLDER>\Lib\site-packages\sqlalchemy\util\compat.py
 If you are not using a virtual environment. 
 The path will be <PYTHON_FOLDER>\Lib\site-packages\sqlalchemy\util\compat.py
 
-This fix was found on [Stackoverflow](https://stackoverflow.com/questions/66799322/chatterbot-attributeerror-module-time-has-no-attribute-clock)
+## Resources
+
+Fix for sqlalchemy was found on [Stackoverflow](https://stackoverflow.com/questions/66799322/chatterbot-attributeerror-module-time-has-no-attribute-clock)
+Dataset for exe is from [kaggle](https://www.kaggle.com/datasets/grafstor/simple-dialogs-for-chatbot?resource=download&select=dialogs.txt)

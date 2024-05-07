@@ -1,9 +1,8 @@
-from shared import bot_name, database_uri, storage_adapter
+from shared import bot_name, database_uri, storage_adapter, ignores, read_json, read_file
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 
 import os
-import json
 import re
 
 root = "data"
@@ -18,17 +17,8 @@ def remove_emoji(text):
 
     return emoji_pattern.sub(r'', text)
 
-def read_file(filepath):
-    file_str = ""
-
-    with open(filepath, 'r', encoding="utf-8") as file:
-        file_str += file.read()
-
-    return file_str
-
-def read_json(filepath):
-    file_str = read_file(filepath)
-    json_data = json.loads(file_str)
+def read_data(filepath):
+    json_data = read_json(filepath)
     data = []
 
     if json_data["type"] == "messenger":
@@ -41,19 +31,27 @@ def read_json(filepath):
 
     return data
 
-
 def load():
     data = []
 
     for root_dir in os.listdir(root):
+        if root_dir in ignores:
+            continue
+
         sub_filepath = root + "/" + root_dir + "/"
         for file in os.listdir(sub_filepath):
             if file == "data.json":
-                data.extend(read_json(sub_filepath + file))
+                data.extend(read_data(sub_filepath + file))
             if file == "data.txt":
                 data.extend(read_file(sub_filepath + file).split("\n"))
             
     return data
+
+if storage_adapter == "chatterbot.storage.SQLStorageAdapter":
+    sqlite_path = database_uri.removeprefix("sqlite:///")
+    
+    if os.path.exists(sqlite_path):
+        os.remove("./" + sqlite_path)
 
 chatbot = ChatBot(
     bot_name,
