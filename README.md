@@ -6,13 +6,11 @@ Made with Python version 3.12.3
 
 ## How to use the bot
 
-You need to run it into the console via 
+Type the following into the console
 
 ```bash
 python main.py
 ```
-
-ctrl+c to close the console
 
 ## Prerequesite
 
