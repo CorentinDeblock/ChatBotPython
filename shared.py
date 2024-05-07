@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 
 def read_file(filepath):
     file_str = ""
@@ -16,7 +17,9 @@ def read_json(filepath):
     return json_data
 
 def get_or_default_conf(default_value, field):
-    return default_value if config[field] is None else config[field]
+    if field in config:
+        return default_value if config[field] is None else config[field]
+    return default_value
 
 def get_or_default_arg(default_value, field):
     arg = getattr(args, field)
@@ -54,10 +57,23 @@ parser.add_argument("-c", "--config",
 )
 
 args = parser.parse_args()
+filepath = get_or_default_arg("./chatbot.conf.json", "config")
 
-config = read_json(get_or_default_arg("./chatbot.conf.json", "config"))
+if os.path.exists(filepath) == False:
+    with open(filepath, "w") as file:
+        data = {
+            "name": "Chatbot",
+            "adapter": "chatterbot.storage.SQLStorageAdapter",
+            "database_uri": "sqlite:///database.sqlite3",
+            "ignores": []
+        }
+        
+        file.write(json.dumps(data, indent=4))
+        file.close()
 
-bot_name = get_or_default("Gerard", "name")
+config = read_json(filepath)
+
+bot_name = get_or_default("Chatbot", "name")
 storage_adapter = get_or_default("chatterbot.storage.SQLStorageAdapter", "adapter")
 database_uri = get_or_default("sqlite:///database.sqlite3", "database_uri")
 ignores = get_or_default_conf([], "ignores")

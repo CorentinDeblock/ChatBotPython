@@ -1,4 +1,4 @@
-from chatterbot import ChatBot
+from chatterbot import ChatBot, preprocessors
 from threading import Thread, Lock
 from shared import bot_name, database_uri, storage_adapter
 
