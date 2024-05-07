@@ -2,6 +2,8 @@
 
 ChatBotPython is a repo to test machine learning on python with a simple chat bot project. This is for learning purpose only
 
+Made with Python version 3.12.3
+
 ## How to use the bot
 
 You need to run it into the console via 
@@ -19,6 +21,14 @@ While you can train the bot by chatting with him. It's not very recommended beca
 Instead you will train the bot but with train data. Train data are just normal conversation data like the one you have on messenger, etc...
 
 You can also populate with a list of word if you want via txt file.
+
+When you have all the data that you want. You can type the following into the console.
+
+```bash
+python populate.py
+```
+
+This will create a sqlite database with all the data.
 
 ### How to train the bot ?
 
